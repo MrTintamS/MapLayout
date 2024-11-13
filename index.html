@@ -17,6 +17,24 @@
         width: 100%;
         height: 400px;
       }
+
+      #return-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 10px 15px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        display: none;
+      }
+
+      #return-to-top:hover {
+        background-color: #0056b3;
+      }
+
     </style>
   </head>
   <body>
@@ -87,8 +105,11 @@
         </div>
       </div>
     </div>
+
+    <a id="map-anchor"></a>
     <!-- Conteneur de la carte -->
     <div id="map-container"></div>
+    <button id="return-to-top">Return to Top</button>
     <!-- Script pour la carte interactive -->
     <script>
       mapboxgl.accessToken = 'pk.eyJ1IjoibXJ0aW50YW1zIiwiYSI6ImNtM2Z4bTExMDAwbzEya3NpcGxleHZ0ZzcifQ.Gd4pQv6fPTfp7wZVvg3gIw';
@@ -130,8 +151,20 @@
               zoom: 12,
               essential: true
             });
+            document.getElementById('map-anchor').scrollIntoView({ behavior: 'smooth' });
           }
         });
+      });
+      const returnToTopButton = document.getElementById('return-to-top');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 200) {
+          returnToTopButton.style.display = 'block';
+        } else {
+          returnToTopButton.style.display = 'none';
+        }
+      });
+      returnToTopButton.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     </script>
   </body>
